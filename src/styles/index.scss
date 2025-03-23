@@ -232,3 +232,11 @@ video {
 [hidden] {
     display: none;
 }
+
+// root styles
+#root {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    align-content: center;
+}
