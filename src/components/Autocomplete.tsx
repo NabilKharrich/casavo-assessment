@@ -1,6 +1,25 @@
+import { ChangeEvent, useRef, useState } from "react";
 import styles from "./../styles/Autocomplete.module.scss";
 
 function Autocomplete() {
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const [input, setInput] = useState("");
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const closeDropdown = () => {
+        setIsOpen(false);
+    };
+
+    const openDropdown = () => {
+        setIsOpen(true);
+    };
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setInput(e.target.value);
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.top}>
@@ -12,10 +31,15 @@ function Autocomplete() {
             <div className={styles.inputWrapper}>
                 <input
                     className={styles.input}
+                    value={input}
+                    ref={inputRef}
+                    onChange={handleChange}
+                    onFocus={openDropdown}
                     type="text"
                     placeholder="Italy"
                 />
-                {<span className={styles.icon}>/</span>}
+                {!isOpen && <span className={styles.icon}>/</span>}
+                {isOpen && <div className={styles.list}>list</div>}
             </div>
             <div className={styles.bottom}>
                 <span className={styles.description}>Tech assessment</span>
