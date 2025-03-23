@@ -4,6 +4,7 @@ import useKeydown from "../hooks/useKeydown";
 import useDebouncedValue from "../hooks/useDebouncedvalue";
 import useClickOutside from "../hooks/useClickOutside";
 import useAutocomplete from "../hooks/useAutocomplete";
+import { higlightSearchTerm } from "../utils";
 
 function Autocomplete() {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -92,7 +93,7 @@ function Autocomplete() {
                                         handleListButtonClick(country)
                                     }
                                 >
-                                    {country}
+                                    {higlightSearchTerm(country, term)}
                                 </button>
                             ))}
                     </div>
