@@ -4,7 +4,7 @@ import useKeydown from "../hooks/useKeydown";
 import useDebouncedValue from "../hooks/useDebouncedvalue";
 import useClickOutside from "../hooks/useClickOutside";
 import useAutocomplete from "../hooks/useAutocomplete";
-import { higlightSearchTerm } from "../utils";
+import { highlightSearchTerm } from "../utils";
 
 function Autocomplete() {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -30,7 +30,7 @@ function Autocomplete() {
         setInput(e.target.value);
     };
 
-    const handleEscape = () => {
+    const handleExit = () => {
         if (noResult) {
             setInput("");
         }
@@ -41,6 +41,11 @@ function Autocomplete() {
     };
 
     const handleEnter = () => {
+        if (isOpen) {
+            handleExit();
+            return;
+        }
+
         openDropdown();
         inputRef.current?.focus();
     };
@@ -50,9 +55,9 @@ function Autocomplete() {
         closeDropdown();
     };
 
-    useClickOutside(containerRef, handleEscape);
+    useClickOutside(containerRef, handleExit);
 
-    useKeydown("Escape", handleEscape);
+    useKeydown("Escape", handleExit);
     useKeydown("/", handleEnter);
 
     return (
@@ -98,7 +103,7 @@ function Autocomplete() {
                                         handleListButtonClick(country)
                                     }
                                 >
-                                    {higlightSearchTerm(country, term)}
+                                    {highlightSearchTerm(country, term)}
                                 </button>
                             ))}
                     </div>

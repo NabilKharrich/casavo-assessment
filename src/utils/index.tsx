@@ -3,7 +3,7 @@ import { Fragment } from "react";
 export const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
-export const higlightSearchTerm = (country: string, term: string) => {
+export const highlightSearchTerm = (country: string, term: string) => {
     if (!term.trim()) return country;
 
     const rx = new RegExp(`(${term})`, "gi");
