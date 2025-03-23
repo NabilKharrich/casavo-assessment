@@ -42,6 +42,7 @@ function Autocomplete() {
 
     return (
         <div className={styles.container}>
+            debounce test {term}
             <div className={styles.top}>
                 <span className={styles.title}>Countries explorer</span>
                 <span className={styles.description}>
