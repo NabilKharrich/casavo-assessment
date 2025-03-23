@@ -4,7 +4,7 @@
 
 [x] async data fetching
 [x] refetch and update list dynamically as the user types
-[] text highlight
+[x] text highlight
 
 ### Bonus
 
