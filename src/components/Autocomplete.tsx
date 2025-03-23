@@ -1,11 +1,13 @@
 import { ChangeEvent, useRef, useState } from "react";
 import styles from "./../styles/Autocomplete.module.scss";
 import useKeydown from "../hooks/useKeydown";
+import useDebouncedValue from "../hooks/useDebouncedvalue";
 
 function Autocomplete() {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [input, setInput] = useState("");
+    const term = useDebouncedValue(input, 500);
 
     const [isOpen, setIsOpen] = useState(false);
 
