@@ -61,19 +61,23 @@
 }
 
 .icon {
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 22px;
-    height: 22px;
-    color: rgb(179, 179, 178);
-    border: 1px solid rgb(179, 179, 178);
-    border-radius: 4px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    font-size: 10px;
+    display: none;
+
+    @media screen and (min-width: 768px) {
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        color: rgb(179, 179, 178);
+        border: 1px solid rgb(179, 179, 178);
+        border-radius: 4px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 10px;
+    }
 }
 
 .list {
