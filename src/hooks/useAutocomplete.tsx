@@ -54,8 +54,7 @@ function useAutocomplete(term: string) {
 
             try {
                 const response = await fetch(
-                    "https://restcountries.com/v3.1/all?fields=name&term=" +
-                        term,
+                    "https://restcountries.com/v3.1/all?fields=name",
                     { signal: acRef.current.signal }
                 );
 
