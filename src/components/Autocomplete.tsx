@@ -15,7 +15,7 @@ function Autocomplete() {
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const { status, data, isLoading } = useAutocomplete(term);
+    const { status, data, isLoading, isError } = useAutocomplete(term);
     const noResult = !isLoading && data.length === 0;
 
     const closeDropdown = () => {
@@ -78,6 +78,11 @@ function Autocomplete() {
                     <div className={styles.list}>
                         {isLoading && (
                             <span className={styles.status}>Loading...</span>
+                        )}
+                        {isError && (
+                            <span className={styles.status}>
+                                An error has occurred
+                            </span>
                         )}
                         {noResult && (
                             <span className={styles.status}>
