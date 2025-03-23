@@ -9,4 +9,4 @@
 ### Bonus
 
 [] load data using a real API call
-[] shortcut to focus and blur component
+[x] shortcut to focus and blur component

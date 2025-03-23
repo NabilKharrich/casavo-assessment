@@ -1,5 +1,6 @@
 import { ChangeEvent, useRef, useState } from "react";
 import styles from "./../styles/Autocomplete.module.scss";
+import useKeydown from "../hooks/useKeydown";
 
 function Autocomplete() {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -19,6 +20,23 @@ function Autocomplete() {
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
     };
+
+    const handleEscape = () => {
+        // todo: clear input only if there are no results
+        setInput("");
+
+        closeDropdown();
+
+        inputRef.current?.blur();
+    };
+
+    const handleEnter = () => {
+        openDropdown();
+        inputRef.current?.focus();
+    };
+
+    useKeydown("Escape", handleEscape);
+    useKeydown("/", handleEnter);
 
     return (
         <div className={styles.container}>
