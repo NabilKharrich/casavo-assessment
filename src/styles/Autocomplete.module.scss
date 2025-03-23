@@ -92,4 +92,57 @@
     left: 0;
     width: 100%;
     margin-top: 4px;
+
+    .item {
+        position: relative;
+        cursor: default;
+        gap: 8px;
+        user-select: none;
+        border-radius: 4px;
+        padding: 6px 8px;
+        font-size: 14px;
+        line-height: 20px;
+        outline: none;
+        color: #111827;
+        background-color: #ffffff;
+        border: none;
+        text-align: left;
+
+        em {
+            font-style: normal;
+            color: rgb(29, 29, 27);
+            background-color: rgb(255, 153, 31);
+            border-radius: 4px;
+        }
+
+        &:focus {
+            background-color: #f3f4f6;
+        }
+
+        &:hover {
+            background-color: #f3f4f6;
+        }
+    }
+}
+
+.results {
+    display: grid;
+    align-content: start;
+    justify-items: start;
+}
+
+.status {
+    position: relative;
+    cursor: default;
+    gap: 8px;
+    user-select: none;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 14px;
+    line-height: 20px;
+    outline: none;
+    color: #111827;
+    background-color: #ffffff;
+    border: none;
+    text-align: left;
 }
