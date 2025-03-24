@@ -2,14 +2,14 @@ import styles from "./../styles/Autocomplete.module.scss";
 
 import { ChangeEvent, useCallback, useMemo, useRef, useState } from "react";
 
-import { highlightSearchTerm } from "../utils";
-
 import {
     useAutocomplete,
     useClickOutside,
     useDebouncedValue,
     useKeydown,
 } from "../hooks";
+
+import { highlightSearchTerm } from "../utils";
 
 import AutocompleteList from "./AutocompleteList";
 
@@ -19,18 +19,35 @@ function Autocomplete() {
 
     const [input, setInput] = useState("");
     const term = useDebouncedValue(input, 500);
-
     const [isOpen, setIsOpen] = useState(false);
 
+    const closeDropdown = () => setIsOpen(false);
+    const openDropdown = () => setIsOpen(true);
+    const chooseListItem = useCallback((country: string) => {
+        setInput(country);
+        closeDropdown();
+
+        inputRef.current?.blur();
+    }, []);
+
     const { status, data } = useAutocomplete(term);
+    const noResult = status === "success" && data.length === 0;
 
-    const closeDropdown = () => {
-        setIsOpen(false);
-    };
-
-    const openDropdown = () => {
-        setIsOpen(true);
-    };
+    const list = useMemo(
+        () =>
+            data.map((country) => (
+                <button
+                    key={country}
+                    className={styles.item}
+                    onClick={() => {
+                        chooseListItem(country);
+                    }}
+                >
+                    {highlightSearchTerm(country, term)}
+                </button>
+            )),
+        [data, term, chooseListItem]
+    );
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
@@ -56,29 +73,7 @@ function Autocomplete() {
         inputRef.current?.focus();
     };
 
-    const handleListButtonClick = useCallback((country: string) => {
-        setInput(country);
-        closeDropdown();
-    }, []);
-
-    const list = useMemo(
-        () =>
-            data.map((country) => (
-                <button
-                    key={country}
-                    className={styles.item}
-                    onClick={() => handleListButtonClick(country)}
-                >
-                    {highlightSearchTerm(country, term)}
-                </button>
-            )),
-        [data, term, handleListButtonClick]
-    );
-
-    const noResult = status === "success" && list.length === 0;
-
     useClickOutside(containerRef, handleExit);
-
     useKeydown("Escape", handleExit);
     useKeydown("/", handleEnter);
 
