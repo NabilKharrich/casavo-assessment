@@ -1,13 +1,7 @@
 import Autocomplete from "./components/Autocomplete";
 
 function App() {
-    return (
-        <>
-            <div>
-                <Autocomplete />
-            </div>
-        </>
-    );
+    return <Autocomplete />;
 }
 
 export default App;
