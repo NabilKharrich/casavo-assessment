@@ -2,6 +2,7 @@ import { useEffect, useReducer, useRef } from "react";
 
 import { MOCK_DATA } from "../data/mock";
 import { sleep } from "../utils";
+import { AutocompleteAction, AutocompleteState } from "../types/autocomplete";
 
 const initialState: AutocompleteState = {
     status: "idle",
