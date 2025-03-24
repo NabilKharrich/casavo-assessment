@@ -11,7 +11,7 @@ import {
     useKeydown,
 } from "../hooks";
 
-import Status from "./Status";
+import AutocompleteList from "./AutocompleteList";
 
 function Autocomplete() {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -22,8 +22,7 @@ function Autocomplete() {
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const { status, data, isLoading, isError } = useAutocomplete(term);
-    const noResult = !isLoading && data.length === 0;
+    const { status, data } = useAutocomplete(term);
 
     const closeDropdown = () => {
         setIsOpen(false);
@@ -76,6 +75,8 @@ function Autocomplete() {
         [data, term, handleListButtonClick]
     );
 
+    const noResult = status === "success" && list.length === 0;
+
     useClickOutside(containerRef, handleExit);
 
     useKeydown("Escape", handleExit);
@@ -99,14 +100,14 @@ function Autocomplete() {
                     type="text"
                     placeholder="Italy"
                 />
-                {!isOpen && <span className={styles.icon}>/</span>}
-                {isOpen && (
-                    <div className={styles.list}>
-                        {isLoading && <Status label="Loading..." />}
-                        {isError && <Status label="An error has occurred" />}
-                        {noResult && <Status label="No results found" />}
-                        {status === "success" && list}
-                    </div>
+                {isOpen ? (
+                    <AutocompleteList
+                        status={status}
+                        list={list}
+                        noResult={noResult}
+                    />
+                ) : (
+                    <span className={styles.icon}>/</span>
                 )}
             </div>
             <div className={styles.bottom}>
