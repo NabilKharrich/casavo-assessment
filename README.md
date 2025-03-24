@@ -18,6 +18,6 @@
 
 -   A sleep function is fired to simulate a delay because the API was too fast.
 -   For test purposes, mock data will be returned if API is down.
--   To enhance the user experience, Shortcuts where added to the component:
+-   To enhance the user experience, shortcuts were added to the component:
     -   `/` shortcut key to toggle the autocomplete component.
     -   `Escape` shortcut key and clicking outside the component to close it.
