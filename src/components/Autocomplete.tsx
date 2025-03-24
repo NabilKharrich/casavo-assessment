@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useMemo, useRef, useState } from "react";
 import styles from "./../styles/Autocomplete.module.scss";
 import useKeydown from "../hooks/useKeydown";
 import useDebouncedValue from "../hooks/useDebouncedvalue";
@@ -50,10 +50,24 @@ function Autocomplete() {
         inputRef.current?.focus();
     };
 
-    const handleListButtonClick = (country: string) => {
+    const handleListButtonClick = useCallback((country: string) => {
         setInput(country);
         closeDropdown();
-    };
+    }, []);
+
+    const list = useMemo(
+        () =>
+            data.map((country) => (
+                <button
+                    key={country}
+                    className={styles.item}
+                    onClick={() => handleListButtonClick(country)}
+                >
+                    {highlightSearchTerm(country, term)}
+                </button>
+            )),
+        [data, term, handleListButtonClick]
+    );
 
     useClickOutside(containerRef, handleExit);
 
@@ -94,18 +108,7 @@ function Autocomplete() {
                                 No results found
                             </span>
                         )}
-                        {status === "success" &&
-                            data.map((country) => (
-                                <button
-                                    key={country}
-                                    className={styles.item}
-                                    onClick={() =>
-                                        handleListButtonClick(country)
-                                    }
-                                >
-                                    {highlightSearchTerm(country, term)}
-                                </button>
-                            ))}
+                        {status === "success" && list}
                     </div>
                 )}
             </div>
