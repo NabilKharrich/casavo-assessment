@@ -1,10 +1,17 @@
-import { ChangeEvent, useCallback, useMemo, useRef, useState } from "react";
 import styles from "./../styles/Autocomplete.module.scss";
-import useKeydown from "../hooks/useKeydown";
-import useDebouncedValue from "../hooks/useDebouncedvalue";
-import useClickOutside from "../hooks/useClickOutside";
-import useAutocomplete from "../hooks/useAutocomplete";
+
+import { ChangeEvent, useCallback, useMemo, useRef, useState } from "react";
+
 import { highlightSearchTerm } from "../utils";
+
+import {
+    useAutocomplete,
+    useClickOutside,
+    useDebouncedValue,
+    useKeydown,
+} from "../hooks";
+
+import Status from "./Status";
 
 function Autocomplete() {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -95,19 +102,9 @@ function Autocomplete() {
                 {!isOpen && <span className={styles.icon}>/</span>}
                 {isOpen && (
                     <div className={styles.list}>
-                        {isLoading && (
-                            <span className={styles.status}>Loading...</span>
-                        )}
-                        {isError && (
-                            <span className={styles.status}>
-                                An error has occurred
-                            </span>
-                        )}
-                        {noResult && (
-                            <span className={styles.status}>
-                                No results found
-                            </span>
-                        )}
+                        {isLoading && <Status label="Loading..." />}
+                        {isError && <Status label="An error has occurred" />}
+                        {noResult && <Status label="No results found" />}
                         {status === "success" && list}
                     </div>
                 )}
